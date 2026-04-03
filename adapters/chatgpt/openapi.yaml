@@ -1,0 +1,362 @@
+openapi: 3.1.0
+info:
+  title: Shoptera Product Intelligence
+  description: >
+    Search product catalogs across thousands of Central European e-shops.
+    Semantic search, keyword matching, and GTIN/EAN lookup.
+    No authentication required.
+  version: "1.0.0"
+
+servers:
+  - url: https://api.shoptera.ai
+    description: Production
+
+paths:
+  /api/v1/search:
+    get:
+      operationId: searchProducts
+      summary: Semantic product search using natural language
+      description: >
+        Search products using natural language. Understands intent, synonyms, and context.
+        Use for open-ended queries like "gift for a gardener under 500 CZK".
+        Returns results ranked by semantic relevance (score 0-1).
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Natural language search query
+          schema:
+            type: string
+          example: "dárek pro zahradníka do 500 Kč"
+        - name: origin_country
+          in: query
+          description: 2-letter ISO country code of the e-shop (CZ, SK, PL, HU, RO, DE, AT)
+          schema:
+            type: string
+            pattern: "^[A-Z]{2}$"
+        - name: target_country
+          in: query
+          description: 2-letter ISO country code of the target market
+          schema:
+            type: string
+            pattern: "^[A-Z]{2}$"
+        - name: min_price
+          in: query
+          description: Minimum price
+          schema:
+            type: number
+            minimum: 0
+        - name: max_price
+          in: query
+          description: Maximum price
+          schema:
+            type: number
+            minimum: 0
+        - name: currency
+          in: query
+          description: 3-letter ISO currency code (CZK, EUR, PLN, HUF, RON)
+          schema:
+            type: string
+        - name: brand
+          in: query
+          description: Exact brand name (case-sensitive)
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Category keyword match
+          schema:
+            type: string
+        - name: availability
+          in: query
+          description: Product availability filter
+          schema:
+            type: string
+            enum: [in_stock, out_of_stock, preorder]
+        - name: eshop_domain
+          in: query
+          description: Filter by e-shop domain
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of results (1-50, default 10)
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+      responses:
+        "200":
+          description: Search results with semantic relevance scores
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+        "422":
+          description: Validation error
+        "429":
+          description: Rate limit exceeded (300/hour per IP)
+
+  /api/v1/search/text:
+    get:
+      operationId: searchProductsByKeyword
+      summary: Keyword search in product titles
+      description: >
+        Search products by exact keyword matching in titles. Deterministic and fast.
+        Use when you know the product name or model, e.g. "Nike Air Max 90".
+        Does not return relevance scores.
+      parameters:
+        - name: title
+          in: query
+          required: true
+          description: Keywords to search in product titles
+          schema:
+            type: string
+          example: "stříbrný přívěsek"
+        - name: brand
+          in: query
+          description: Exact brand name (case-sensitive)
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Category keyword match
+          schema:
+            type: string
+        - name: origin_country
+          in: query
+          description: 2-letter ISO country code
+          schema:
+            type: string
+        - name: target_country
+          in: query
+          description: 2-letter ISO country code
+          schema:
+            type: string
+        - name: min_price
+          in: query
+          description: Minimum price
+          schema:
+            type: number
+            minimum: 0
+        - name: max_price
+          in: query
+          description: Maximum price
+          schema:
+            type: number
+            minimum: 0
+        - name: currency
+          in: query
+          description: 3-letter ISO currency code
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of results (1-50, default 10)
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+      responses:
+        "200":
+          description: Keyword search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponseNoScore"
+        "422":
+          description: Validation error
+        "429":
+          description: Rate limit exceeded
+
+  /api/v1/search/gtin/{gtin}:
+    get:
+      operationId: lookupProductByGtin
+      summary: Look up product by GTIN/EAN barcode
+      description: >
+        Find products across all indexed e-shops by GTIN, EAN, or UPC barcode.
+        Use for price comparison or product identification from a barcode number.
+        The GTIN must be 8-14 digits.
+      parameters:
+        - name: gtin
+          in: path
+          required: true
+          description: GTIN/EAN/UPC barcode (8-14 digits)
+          schema:
+            type: string
+            pattern: "^\\d{8,14}$"
+          example: "5901234123457"
+        - name: origin_country
+          in: query
+          description: 2-letter ISO country code
+          schema:
+            type: string
+        - name: target_country
+          in: query
+          description: 2-letter ISO country code
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of results (1-50, default 10)
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+      responses:
+        "200":
+          description: GTIN lookup results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponseNoScore"
+        "422":
+          description: Validation error
+        "429":
+          description: Rate limit exceeded
+
+  /stats/global:
+    get:
+      operationId: getCatalogStats
+      summary: Get catalog statistics
+      description: >
+        Public statistics about the Shoptera catalog: number of e-shops, products,
+        and feeds indexed, broken down by country. Cached for 1 hour.
+      responses:
+        "200":
+          description: Global catalog statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalStats"
+
+components:
+  schemas:
+    CartAction:
+      type: object
+      properties:
+        action:
+          type: string
+          description: Always "add_to_cart"
+        url:
+          type: string
+          format: uri
+          description: URL for cart action
+        method:
+          type: string
+          enum: [GET, browser_click, view_product]
+          description: >
+            GET = navigate to URL (auto-adds to cart).
+            browser_click = navigate to URL and click button matching button_text.
+            view_product = show URL to user.
+        button_text:
+          type: string
+          nullable: true
+          description: Button text to click (browser_click only)
+
+    Product:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        currency:
+          type: string
+        brand:
+          type: string
+        category:
+          type: string
+        gtin:
+          type: string
+        image_url:
+          type: string
+          format: uri
+        product_url:
+          type: string
+          format: uri
+        availability:
+          type: string
+          enum: [in_stock, out_of_stock, preorder]
+        eshop_name:
+          type: string
+        eshop_domain:
+          type: string
+        origin_country:
+          type: string
+        target_countries:
+          type: array
+          items:
+            type: string
+        cart_action:
+          $ref: "#/components/schemas/CartAction"
+
+    ProductWithScore:
+      allOf:
+        - $ref: "#/components/schemas/Product"
+        - type: object
+          properties:
+            score:
+              type: number
+              description: Semantic relevance (0-1)
+
+    SearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductWithScore"
+        total_found:
+          type: integer
+
+    SearchResponseNoScore:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+        total_found:
+          type: integer
+
+    CountryStats:
+      type: object
+      properties:
+        country:
+          type: string
+        label:
+          type: string
+        count:
+          type: integer
+
+    GlobalStats:
+      type: object
+      properties:
+        mcp:
+          type: object
+          properties:
+            total_impressions:
+              type: integer
+            unique_queries:
+              type: integer
+            agents_connected:
+              type: integer
+        catalog:
+          type: object
+          properties:
+            eshops_count:
+              type: integer
+            feeds_count:
+              type: integer
+            products_count:
+              type: integer
+            by_country:
+              type: array
+              items:
+                $ref: "#/components/schemas/CountryStats"
