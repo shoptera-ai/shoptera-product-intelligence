@@ -39,6 +39,18 @@ Use when the user provides a barcode number (8-14 digits).
 lookup_by_gtin(gtin="5901234123457", origin_country="CZ")
 ```
 
+## Saving Tokens
+
+All three tools accept an optional `fields` parameter (list of strings) to return only specific fields. This reduces response size by up to 70%.
+
+```
+search_products(q="running shoes", limit=5, fields=["title", "price", "product_url", "cart_action"])
+```
+
+For price comparisons, `fields=["title", "price", "product_url"]` is often sufficient. Always include `"cart_action"` if you need add-to-cart functionality.
+
+**Available fields:** `title`, `description`, `price`, `currency`, `brand`, `category`, `gtin`, `image_url`, `product_url`, `availability`, `eshop_name`, `eshop_domain`, `origin_country`, `target_countries`, `score` (semantic only), `cart_action`
+
 ## Choosing the Right Tool
 
 ```

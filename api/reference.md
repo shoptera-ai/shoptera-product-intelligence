@@ -31,6 +31,9 @@ GET /api/v1/search
 | `availability` | string | No | One of: `in_stock`, `out_of_stock`, `preorder` | `in_stock` |
 | `eshop_domain` | string | No | Filter by e-shop domain | `fantasyobchod.cz` |
 | `limit` | integer | No | Number of results (1-50, default 10) | `10` |
+| `fields` | string | No | Comma-separated list of fields to return. Default: all fields. | `title,price,product_url` |
+
+> **Saving tokens:** Use the `fields` parameter to reduce response size by up to 70%. For comparison/price queries, `fields=title,price,product_url` is often sufficient. Always include `cart_action` if you need add-to-cart functionality.
 
 ### Example Request
 
@@ -94,6 +97,7 @@ GET /api/v1/search/text
 | `max_price` | number | No | Maximum price (>= 0) | `2000` |
 | `currency` | string | No | 3-letter ISO currency code | `CZK` |
 | `limit` | integer | No | Number of results (1-50, default 10) | `10` |
+| `fields` | string | No | Comma-separated list of fields to return. Default: all fields. | `title,price,product_url` |
 
 ### Example Request
 
@@ -158,6 +162,7 @@ GET /api/v1/search/gtin/{gtin}
 | `origin_country` | string | No | 2-letter ISO country code | `CZ` |
 | `target_country` | string | No | 2-letter ISO country code | `SK` |
 | `limit` | integer | No | Number of results (1-50, default 10) | `10` |
+| `fields` | string | No | Comma-separated list of fields to return. Default: all fields. | `title,price,product_url` |
 
 ### Example Request
 
@@ -320,6 +325,28 @@ Content-Type: application/json
 {
   "detail": "Rate limit exceeded. Try again in 120 seconds."
 }
+```
+
+---
+
+## Token Saving
+
+Use the `fields` parameter on any search endpoint to request only the fields you need. This can reduce response size by up to 70%.
+
+**Available fields:** `title`, `description`, `price`, `currency`, `brand`, `category`, `gtin`, `image_url`, `product_url`, `availability`, `eshop_name`, `eshop_domain`, `origin_country`, `target_countries`, `score` (semantic only), `cart_action`
+
+**Examples:**
+
+| Use Case | Recommended Fields |
+|----------|--------------------|
+| Price comparison | `title,price,currency,product_url,eshop_name` |
+| Product listing | `title,price,currency,image_url,product_url` |
+| Shopping with cart | `title,price,product_url,cart_action` |
+| Full details | omit `fields` (returns everything) |
+
+```bash
+# Only fetch title, price, and link — ~70% smaller response
+curl "https://shoptera.ai/api/v1/search?q=boty&limit=5&fields=title,price,product_url"
 ```
 
 ---

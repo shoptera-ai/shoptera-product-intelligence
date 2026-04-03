@@ -42,6 +42,15 @@ Every product includes a `cart_action`. Handle it based on `method`:
 - **`browser_click`**: Tell the user to visit `url` and click the button (e.g., "Click 'Přidat do košíku' on the product page").
 - **`view_product`**: Just provide the product page URL.
 
+## Saving Tokens
+
+All search actions accept an optional `fields` parameter (comma-separated string) to return only specific fields. This reduces response size by up to 70%.
+
+- For price comparisons: `fields=title,price,currency,product_url,eshop_name`
+- For product listings: `fields=title,price,currency,image_url,product_url`
+- For shopping with cart: `fields=title,price,product_url,cart_action`
+- Always include `cart_action` if the user wants to add items to cart.
+
 ## Important Notes
 
 - No authentication is required — all API calls work without API keys.

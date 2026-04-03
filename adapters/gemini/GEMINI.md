@@ -22,6 +22,7 @@ Semantic product search using natural language. Understands intent, synonyms, an
 - `availability` (string) — in_stock, out_of_stock, preorder
 - `eshop_domain` (string) — specific e-shop domain
 - `limit` (integer) — 1-50, default 10
+- `fields` (string) — comma-separated list of fields to return (reduces response size by up to 70%)
 
 **Example:**
 
@@ -47,6 +48,7 @@ Keyword search in product titles. Exact token matching, deterministic results.
 - `max_price` (number) — maximum price
 - `currency` (string) — 3-letter ISO code
 - `limit` (integer) — 1-50, default 10
+- `fields` (string) — comma-separated list of fields to return (reduces response size by up to 70%)
 
 **Example:**
 
@@ -67,6 +69,7 @@ GTIN/EAN/UPC barcode lookup (8-14 digits).
 - `origin_country` (string) — 2-letter ISO code
 - `target_country` (string) — 2-letter ISO code
 - `limit` (integer) — 1-50, default 10
+- `fields` (string) — comma-separated list of fields to return (reduces response size by up to 70%)
 
 **Example:**
 
@@ -120,6 +123,10 @@ Each product has `cart_action.method`:
 - `GET` — navigate to `url` to add to cart automatically
 - `browser_click` — navigate to `url`, click button matching `button_text`
 - `view_product` — show `url` to the user
+
+**Available fields for `fields` parameter:** `title`, `description`, `price`, `currency`, `brand`, `category`, `gtin`, `image_url`, `product_url`, `availability`, `eshop_name`, `eshop_domain`, `origin_country`, `target_countries`, `score` (semantic only), `cart_action`
+
+> **Saving tokens:** Use `fields` to request only the data you need. For price comparisons, `fields=title,price,product_url` is often sufficient. Always include `cart_action` if you need add-to-cart functionality.
 
 ## When to Use Which Tool
 

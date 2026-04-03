@@ -99,6 +99,17 @@ paths:
             maximum: 50
             default: 10
           example: 10
+        - name: fields
+          in: query
+          description: >
+            Comma-separated list of fields to include in each product result.
+            Reduces response size by up to 70%. Default: all fields.
+            Available: title, description, price, currency, brand, category, gtin,
+            image_url, product_url, availability, eshop_name, eshop_domain,
+            origin_country, target_countries, score, cart_action.
+          schema:
+            type: string
+          example: "title,price,product_url,cart_action"
       responses:
         "200":
           description: Search results
@@ -195,6 +206,17 @@ paths:
             maximum: 50
             default: 10
           example: 10
+        - name: fields
+          in: query
+          description: >
+            Comma-separated list of fields to include in each product result.
+            Reduces response size by up to 70%. Default: all fields.
+            Available: title, description, price, currency, brand, category, gtin,
+            image_url, product_url, availability, eshop_name, eshop_domain,
+            origin_country, target_countries, cart_action.
+          schema:
+            type: string
+          example: "title,price,product_url"
       responses:
         "200":
           description: Search results
@@ -259,6 +281,17 @@ paths:
             maximum: 50
             default: 10
           example: 10
+        - name: fields
+          in: query
+          description: >
+            Comma-separated list of fields to include in each product result.
+            Reduces response size by up to 70%. Default: all fields.
+            Available: title, description, price, currency, brand, category, gtin,
+            image_url, product_url, availability, eshop_name, eshop_domain,
+            origin_country, target_countries, cart_action.
+          schema:
+            type: string
+          example: "title,price,product_url"
       responses:
         "200":
           description: Search results

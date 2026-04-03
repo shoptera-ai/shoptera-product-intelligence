@@ -18,6 +18,12 @@ With filters:
 curl -s "https://shoptera.ai/api/v1/search?q=b%C4%9B%C5%BEeck%C3%A9+boty&brand=Nike&availability=in_stock&min_price=1000&max_price=3000&currency=CZK"
 ```
 
+With `fields` to reduce response size (~70% smaller):
+
+```bash
+curl -s "https://shoptera.ai/api/v1/search?q=boty&limit=5&fields=title,price,product_url,cart_action"
+```
+
 ---
 
 ## Python
@@ -76,3 +82,4 @@ for (const product of data.results) {
 - Use `max_price` and `currency` together for price-bounded searches.
 - The `score` field (0-1) indicates semantic relevance — higher is better.
 - Combine with `origin_country` to search e-shops from a specific country.
+- **Saving tokens:** Use `fields` to request only the data you need. For price comparisons, `fields=title,price,product_url` is often sufficient. Always include `cart_action` if you need add-to-cart functionality.

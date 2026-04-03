@@ -30,6 +30,12 @@ curl "https://shoptera.ai/api/v1/search/text?title=Nike+Air+Max+90&brand=Nike"
 curl "https://shoptera.ai/api/v1/search/gtin/5901234123457"
 ```
 
+**Saving tokens:** Add `fields` to return only what you need (up to 70% smaller response):
+
+```bash
+curl "https://shoptera.ai/api/v1/search?q=boty&limit=5&fields=title,price,product_url,cart_action"
+```
+
 ---
 
 ## Platform Setup

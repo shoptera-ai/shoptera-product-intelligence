@@ -122,6 +122,35 @@ Keyword and GTIN searches do not include a score.
 
 ---
 
+## Optimizing Response Size
+
+Use the `fields` parameter to request only the fields you need. This can reduce response size by up to 70%, which is especially useful for AI agents where every token counts.
+
+**REST API:** pass `fields` as a comma-separated query string:
+
+```bash
+curl "https://shoptera.ai/api/v1/search?q=boty&limit=5&fields=title,price,product_url,cart_action"
+```
+
+**MCP:** pass `fields` as a list of strings:
+
+```json
+{
+  "name": "search_products",
+  "arguments": {
+    "query": "running shoes",
+    "limit": 5,
+    "fields": ["title", "price", "product_url", "cart_action"]
+  }
+}
+```
+
+**Available fields:** `title`, `description`, `price`, `currency`, `brand`, `category`, `gtin`, `image_url`, `product_url`, `availability`, `eshop_name`, `eshop_domain`, `origin_country`, `target_countries`, `score` (semantic only), `cart_action`
+
+> **Saving tokens:** For comparison/price queries, `fields=title,price,product_url` is often sufficient. Always include `cart_action` if you need add-to-cart functionality.
+
+---
+
 ## Rate Limits
 
 All search endpoints share the same rate limit: **300 requests per hour per IP address**. This limit is shared between REST API and MCP protocol calls.

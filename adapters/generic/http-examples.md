@@ -19,6 +19,9 @@ curl -s "https://shoptera.ai/api/v1/search?q=b%C4%9B%C5%BEeck%C3%A9+boty&brand=N
 
 # Search across all countries
 curl -s "https://shoptera.ai/api/v1/search?q=wireless+headphones&max_price=100&currency=EUR"
+
+# Only return specific fields (up to 70% smaller response)
+curl -s "https://shoptera.ai/api/v1/search?q=boty&limit=5&fields=title,price,product_url,cart_action"
 ```
 
 ### Python
@@ -84,6 +87,9 @@ curl -s "https://shoptera.ai/api/v1/search/text?title=st%C5%99%C3%ADbrn%C3%BD+p%
 
 # Search with brand filter
 curl -s "https://shoptera.ai/api/v1/search/text?title=Air+Max&brand=Nike&limit=10"
+
+# Only return specific fields
+curl -s "https://shoptera.ai/api/v1/search/text?title=Air+Max&brand=Nike&fields=title,price,product_url"
 ```
 
 ### Python
@@ -141,6 +147,9 @@ curl -s "https://shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ"
 
 # Look up across all countries
 curl -s "https://shoptera.ai/api/v1/search/gtin/5901234123457?limit=20"
+
+# Only return price comparison fields
+curl -s "https://shoptera.ai/api/v1/search/gtin/5901234123457?fields=title,price,currency,eshop_name,product_url"
 ```
 
 ### Python

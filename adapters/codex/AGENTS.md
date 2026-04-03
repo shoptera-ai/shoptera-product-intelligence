@@ -22,7 +22,7 @@ Natural language product search. Understands intent, synonyms, and multilingual 
 curl "https://shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka&max_price=500&currency=CZK&origin_country=CZ&limit=5"
 ```
 
-Parameters: `q` (required), `origin_country`, `target_country`, `min_price`, `max_price`, `currency`, `brand`, `category`, `availability`, `eshop_domain`, `limit` (1-50).
+Parameters: `q` (required), `origin_country`, `target_country`, `min_price`, `max_price`, `currency`, `brand`, `category`, `availability`, `eshop_domain`, `limit` (1-50), `fields` (comma-separated list of fields to return, e.g. `title,price,product_url`).
 
 ### Keyword Search
 
@@ -32,7 +32,7 @@ Exact token matching in product titles. Faster, deterministic.
 curl "https://shoptera.ai/api/v1/search/text?title=Nike+Air+Max+90&brand=Nike&origin_country=CZ"
 ```
 
-Parameters: `title` (required), `brand`, `category`, `origin_country`, `target_country`, `min_price`, `max_price`, `currency`, `limit` (1-50).
+Parameters: `title` (required), `brand`, `category`, `origin_country`, `target_country`, `min_price`, `max_price`, `currency`, `limit` (1-50), `fields` (comma-separated list of fields to return).
 
 ### GTIN/EAN Lookup
 
@@ -42,7 +42,7 @@ Find products by barcode number (8-14 digits).
 curl "https://shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ"
 ```
 
-Parameters: `origin_country`, `target_country`, `limit` (1-50).
+Parameters: `origin_country`, `target_country`, `limit` (1-50), `fields` (comma-separated list of fields to return).
 
 ### Response Format
 
@@ -80,6 +80,8 @@ All search endpoints return:
 ```
 
 `score` is only present in semantic search results.
+
+**Saving tokens:** Use the `fields` parameter to reduce response size by up to 70%. For price comparisons, `fields=title,price,product_url` is often sufficient. Always include `cart_action` if you need add-to-cart functionality.
 
 ## When to Use
 
