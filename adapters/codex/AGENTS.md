@@ -1,5 +1,17 @@
 # Shoptera Product Intelligence
 
+## Quick Setup
+
+**Universal (any MCP-compatible tool):**
+```bash
+npx add-mcp https://shoptera.ai/api/mcp -n shoptera -g -y
+```
+
+**Claude Code:**
+```bash
+claude mcp add --transport http shoptera https://shoptera.ai/api/mcp
+```
+
 ## Capabilities
 
 - Semantic product search across 2500+ Central European e-shops (~8.5M products)

@@ -5,6 +5,12 @@ description: Search products across Central European e-shops. Use when user asks
 
 # Shoptera Product Search
 
+## Install
+
+```bash
+claude mcp add --transport http shoptera https://shoptera.ai/api/mcp
+```
+
 You have access to the Shoptera product catalog — over 8 million products from 2500+ e-shops across Czech Republic, Slovakia, Poland, Hungary, Romania, Germany, and Austria.
 
 ## When to Use

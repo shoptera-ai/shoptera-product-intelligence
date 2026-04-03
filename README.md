@@ -38,34 +38,76 @@ curl "https://shoptera.ai/api/v1/search?q=boty&limit=5&fields=title,price,produc
 
 ---
 
-## Platform Setup
+## Quick Install
 
-| Platform | Config | Instructions |
-|----------|--------|--------------|
-| **Claude Code** | [`adapters/claude-code/mcp-config.json`](adapters/claude-code/mcp-config.json) | Copy to your Claude Code MCP settings. [Skill guide](adapters/claude-code/SKILL.md) |
-| **Cursor** | [`adapters/cursor/mcp-config.json`](adapters/cursor/mcp-config.json) | Add to Cursor MCP settings |
-| **Windsurf** | [`adapters/windsurf/mcp-config.json`](adapters/windsurf/mcp-config.json) | Add to Windsurf MCP settings |
-| **OpenAI Codex** | [`adapters/codex/AGENTS.md`](adapters/codex/AGENTS.md) | Reference in your agent config |
-| **ChatGPT (Custom GPT)** | [`adapters/chatgpt/openapi.yaml`](adapters/chatgpt/openapi.yaml) | Import as custom actions. [Instructions](adapters/chatgpt/instructions.md) |
-| **Gemini** | [`adapters/gemini/GEMINI.md`](adapters/gemini/GEMINI.md) | Tool definitions and endpoints |
-| **Any HTTP client** | [`adapters/generic/http-examples.md`](adapters/generic/http-examples.md) | curl, Python, JavaScript examples |
+### Claude Code (one command)
 
-### MCP Quick Setup
+```bash
+claude mcp add --transport http shoptera https://shoptera.ai/api/mcp
+```
 
-MCP endpoint: `https://shoptera.ai/api/mcp` (streamable HTTP, stateless)
+### Cursor
+
+Add to Cursor Settings → Features → MCP → Add New MCP Server, or edit `~/.cursor/mcp.json`:
 
 ```json
 {
   "mcpServers": {
-    "shoptera": {
-      "type": "streamable-http",
-      "url": "https://shoptera.ai/api/mcp"
-    }
+    "shoptera": { "url": "https://shoptera.ai/api/mcp" }
   }
 }
 ```
 
-3 MCP tools: `search_products`, `search_products_by_text`, `lookup_by_gtin`
+### Windsurf
+
+Add via Cascade → MCP Servers → Add Server, or edit `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "shoptera": { "url": "https://shoptera.ai/api/mcp" }
+  }
+}
+```
+
+### VS Code (Copilot / Continue)
+
+Edit `.vscode/mcp.json` in your workspace:
+
+```json
+{
+  "mcpServers": {
+    "shoptera": { "url": "https://shoptera.ai/api/mcp" }
+  }
+}
+```
+
+### Any tool (universal installer)
+
+```bash
+npx add-mcp https://shoptera.ai/api/mcp -n shoptera -g -y
+```
+
+---
+
+## All Platforms
+
+| Platform | Setup | Details |
+|----------|-------|---------|
+| **Claude Code** | `claude mcp add --transport http shoptera https://shoptera.ai/api/mcp` | [Skill guide](adapters/claude-code/SKILL.md) |
+| **Cursor** | [MCP config](adapters/cursor/mcp-config.json) | Settings → Features → MCP |
+| **Windsurf** | [MCP config](adapters/windsurf/mcp-config.json) | Cascade → MCP Servers |
+| **VS Code** | [MCP config](adapters/claude-code/mcp-config.json) | `.vscode/mcp.json` |
+| **OpenAI Codex** | [AGENTS.md](adapters/codex/AGENTS.md) | Agent config reference |
+| **ChatGPT** | [OpenAPI spec](adapters/chatgpt/openapi.yaml) | Custom GPT actions. [Instructions](adapters/chatgpt/instructions.md) |
+| **Gemini** | [GEMINI.md](adapters/gemini/GEMINI.md) | Tool definitions and endpoints |
+| **Any HTTP client** | [Examples](adapters/generic/http-examples.md) | curl, Python, JavaScript |
+
+### MCP Details
+
+Endpoint: `https://shoptera.ai/api/mcp` (streamable HTTP, stateless, no auth)
+
+3 tools: `search_products`, `search_products_by_text`, `lookup_by_gtin`
 
 ---
 
