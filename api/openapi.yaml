@@ -1,0 +1,498 @@
+openapi: 3.1.0
+info:
+  title: Shoptera Product Intelligence
+  description: >
+    Search product catalogs across thousands of Central European e-shops.
+    Semantic search, keyword matching, and GTIN/EAN lookup.
+    No authentication required.
+  version: "1.0.0"
+  contact:
+    name: Shoptera
+    url: https://shoptera.ai
+
+servers:
+  - url: https://api.shoptera.ai
+    description: Production
+
+paths:
+  /api/v1/search:
+    get:
+      operationId: searchProducts
+      summary: Semantic product search
+      description: >
+        Search products using natural language. Uses vector embeddings to understand
+        intent, synonyms, and context. Returns results ranked by semantic relevance.
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Natural language search query
+          schema:
+            type: string
+          example: "dárek pro zahradníka do 500 Kč"
+        - name: origin_country
+          in: query
+          description: 2-letter ISO country code of the e-shop
+          schema:
+            type: string
+            pattern: "^[A-Z]{2}$"
+          example: "CZ"
+        - name: target_country
+          in: query
+          description: 2-letter ISO country code of the target market
+          schema:
+            type: string
+            pattern: "^[A-Z]{2}$"
+          example: "SK"
+        - name: min_price
+          in: query
+          description: Minimum price
+          schema:
+            type: number
+            minimum: 0
+          example: 100
+        - name: max_price
+          in: query
+          description: Maximum price
+          schema:
+            type: number
+            minimum: 0
+          example: 500
+        - name: currency
+          in: query
+          description: 3-letter ISO currency code
+          schema:
+            type: string
+            pattern: "^[A-Z]{3}$"
+          example: "CZK"
+        - name: brand
+          in: query
+          description: Exact brand name (case-sensitive)
+          schema:
+            type: string
+          example: "Nike"
+        - name: category
+          in: query
+          description: Category keyword match
+          schema:
+            type: string
+          example: "Obuv"
+        - name: availability
+          in: query
+          description: Product availability filter
+          schema:
+            type: string
+            enum: [in_stock, out_of_stock, preorder]
+          example: "in_stock"
+        - name: eshop_domain
+          in: query
+          description: Filter by e-shop domain
+          schema:
+            type: string
+          example: "fantasyobchod.cz"
+        - name: limit
+          in: query
+          description: Number of results to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+          example: 10
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+        "422":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+        "429":
+          description: Rate limit exceeded
+          headers:
+            Retry-After:
+              description: Seconds until the rate limit resets
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitError"
+
+  /api/v1/search/text:
+    get:
+      operationId: searchProductsByText
+      summary: Keyword product search
+      description: >
+        Search products by exact keyword matching in titles. Deterministic results,
+        faster than semantic search. Best when you know the exact product name.
+      parameters:
+        - name: title
+          in: query
+          required: true
+          description: Keyword search in product titles
+          schema:
+            type: string
+          example: "stříbrný přívěsek"
+        - name: brand
+          in: query
+          description: Exact brand name (case-sensitive)
+          schema:
+            type: string
+          example: "Fantasy Šperky"
+        - name: category
+          in: query
+          description: Category keyword match
+          schema:
+            type: string
+          example: "Šperky"
+        - name: origin_country
+          in: query
+          description: 2-letter ISO country code of the e-shop
+          schema:
+            type: string
+            pattern: "^[A-Z]{2}$"
+          example: "CZ"
+        - name: target_country
+          in: query
+          description: 2-letter ISO country code of the target market
+          schema:
+            type: string
+            pattern: "^[A-Z]{2}$"
+          example: "SK"
+        - name: min_price
+          in: query
+          description: Minimum price
+          schema:
+            type: number
+            minimum: 0
+          example: 500
+        - name: max_price
+          in: query
+          description: Maximum price
+          schema:
+            type: number
+            minimum: 0
+          example: 2000
+        - name: currency
+          in: query
+          description: 3-letter ISO currency code
+          schema:
+            type: string
+            pattern: "^[A-Z]{3}$"
+          example: "CZK"
+        - name: limit
+          in: query
+          description: Number of results to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+          example: 10
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponseNoScore"
+        "422":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+        "429":
+          description: Rate limit exceeded
+          headers:
+            Retry-After:
+              description: Seconds until the rate limit resets
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitError"
+
+  /api/v1/search/gtin/{gtin}:
+    get:
+      operationId: lookupByGtin
+      summary: GTIN/EAN barcode lookup
+      description: >
+        Look up products by GTIN, EAN, or UPC barcode number. Returns all products
+        matching the given barcode across all indexed e-shops.
+      parameters:
+        - name: gtin
+          in: path
+          required: true
+          description: GTIN/EAN/UPC barcode (8-14 digits)
+          schema:
+            type: string
+            pattern: "^\\d{8,14}$"
+          example: "5901234123457"
+        - name: origin_country
+          in: query
+          description: 2-letter ISO country code
+          schema:
+            type: string
+            pattern: "^[A-Z]{2}$"
+          example: "CZ"
+        - name: target_country
+          in: query
+          description: 2-letter ISO country code
+          schema:
+            type: string
+            pattern: "^[A-Z]{2}$"
+          example: "SK"
+        - name: limit
+          in: query
+          description: Number of results to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+          example: 10
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponseNoScore"
+        "422":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+        "429":
+          description: Rate limit exceeded
+          headers:
+            Retry-After:
+              description: Seconds until the rate limit resets
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitError"
+
+  /stats/global:
+    get:
+      operationId: getGlobalStats
+      summary: Global catalog statistics
+      description: >
+        Public statistics about the Shoptera catalog. Cached for 1 hour.
+        No authentication required.
+      responses:
+        "200":
+          description: Catalog statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalStats"
+
+components:
+  schemas:
+    CartAction:
+      type: object
+      properties:
+        action:
+          type: string
+          description: Always "add_to_cart"
+          example: "add_to_cart"
+        url:
+          type: string
+          format: uri
+          description: URL for the cart action
+          example: "https://sportshop.cz/cart/add?id=12345"
+        method:
+          type: string
+          enum: [GET, browser_click, view_product]
+          description: >
+            How to execute the cart action.
+            GET = navigate to URL (auto-adds to cart).
+            browser_click = navigate to URL then click button matching button_text.
+            view_product = show product URL to user.
+          example: "GET"
+        button_text:
+          type: string
+          nullable: true
+          description: Button text to click (only for browser_click method)
+          example: null
+      required: [action, url, method, button_text]
+
+    Product:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Nike Air Max 90"
+        description:
+          type: string
+          example: "Comfortable running shoes with Air Max cushioning."
+        price:
+          type: number
+          example: 2499.0
+        currency:
+          type: string
+          example: "CZK"
+        brand:
+          type: string
+          example: "Nike"
+        category:
+          type: string
+          example: "Obuv > Běžecké boty"
+        gtin:
+          type: string
+          example: "5901234123457"
+        image_url:
+          type: string
+          format: uri
+          example: "https://cdn.sportshop.cz/nike-air-max.jpg"
+        product_url:
+          type: string
+          format: uri
+          example: "https://sportshop.cz/nike-air-max-90"
+        availability:
+          type: string
+          enum: [in_stock, out_of_stock, preorder]
+          example: "in_stock"
+        eshop_name:
+          type: string
+          example: "SportShop"
+        eshop_domain:
+          type: string
+          example: "sportshop.cz"
+        origin_country:
+          type: string
+          example: "CZ"
+        target_countries:
+          type: array
+          items:
+            type: string
+          example: ["CZ", "SK"]
+        cart_action:
+          $ref: "#/components/schemas/CartAction"
+      required:
+        - title
+        - price
+        - currency
+        - product_url
+        - availability
+        - eshop_name
+        - eshop_domain
+        - origin_country
+        - target_countries
+        - cart_action
+
+    ProductWithScore:
+      allOf:
+        - $ref: "#/components/schemas/Product"
+        - type: object
+          properties:
+            score:
+              type: number
+              description: Semantic relevance score (0-1)
+              example: 0.8742
+
+    SearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductWithScore"
+        total_found:
+          type: integer
+          example: 42
+      required: [results, total_found]
+
+    SearchResponseNoScore:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+        total_found:
+          type: integer
+          example: 5
+      required: [results, total_found]
+
+    CountryStats:
+      type: object
+      properties:
+        country:
+          type: string
+          example: "CZ"
+        label:
+          type: string
+          example: "Czech Republic"
+        count:
+          type: integer
+          example: 1800
+      required: [country, label, count]
+
+    GlobalStats:
+      type: object
+      properties:
+        mcp:
+          type: object
+          properties:
+            total_impressions:
+              type: integer
+              example: 12500
+            unique_queries:
+              type: integer
+              example: 3200
+            agents_connected:
+              type: integer
+              example: 15
+        catalog:
+          type: object
+          properties:
+            eshops_count:
+              type: integer
+              example: 2500
+            feeds_count:
+              type: integer
+              example: 3100
+            products_count:
+              type: integer
+              example: 8500000
+            by_country:
+              type: array
+              items:
+                $ref: "#/components/schemas/CountryStats"
+
+    ValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            type: object
+            properties:
+              loc:
+                type: array
+                items:
+                  type: string
+              msg:
+                type: string
+              type:
+                type: string
+
+    RateLimitError:
+      type: object
+      properties:
+        detail:
+          type: string
+          example: "Rate limit exceeded. Try again in 120 seconds."
