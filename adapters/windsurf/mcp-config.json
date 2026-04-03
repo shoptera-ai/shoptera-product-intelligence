@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "shoptera": {
+      "url": "https://api.shoptera.ai/mcp"
+    }
+  }
+}
