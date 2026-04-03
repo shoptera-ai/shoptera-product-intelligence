@@ -9,13 +9,13 @@ Search products by exact keyword matching in titles. Deterministic, fast, and be
 ## curl
 
 ```bash
-curl -s "https://api.shoptera.ai/api/v1/search/text?title=st%C5%99%C3%ADbrn%C3%BD+p%C5%99%C3%ADv%C4%9Bsek&origin_country=CZ&limit=5"
+curl -s "https://shoptera.ai/api/v1/search/text?title=st%C5%99%C3%ADbrn%C3%BD+p%C5%99%C3%ADv%C4%9Bsek&origin_country=CZ&limit=5"
 ```
 
 With brand filter:
 
 ```bash
-curl -s "https://api.shoptera.ai/api/v1/search/text?title=p%C5%99%C3%ADv%C4%9Bsek&brand=Fantasy+%C5%A0perky&origin_country=CZ"
+curl -s "https://shoptera.ai/api/v1/search/text?title=p%C5%99%C3%ADv%C4%9Bsek&brand=Fantasy+%C5%A0perky&origin_country=CZ"
 ```
 
 ---
@@ -25,7 +25,7 @@ curl -s "https://api.shoptera.ai/api/v1/search/text?title=p%C5%99%C3%ADv%C4%9Bse
 ```python
 import requests
 
-response = requests.get("https://api.shoptera.ai/api/v1/search/text", params={
+response = requests.get("https://shoptera.ai/api/v1/search/text", params={
     "title": "stříbrný přívěsek",
     "origin_country": "CZ",
     "limit": 5,
@@ -52,7 +52,7 @@ const params = new URLSearchParams({
 });
 
 const response = await fetch(
-  `https://api.shoptera.ai/api/v1/search/text?${params}`
+  `https://shoptera.ai/api/v1/search/text?${params}`
 );
 const data = await response.json();
 

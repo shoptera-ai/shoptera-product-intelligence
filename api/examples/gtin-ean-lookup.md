@@ -9,13 +9,13 @@ Look up products by barcode number. Find which e-shops sell a specific product a
 ## curl
 
 ```bash
-curl -s "https://api.shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ&limit=10"
+curl -s "https://shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ&limit=10"
 ```
 
 Without country filter (search all countries):
 
 ```bash
-curl -s "https://api.shoptera.ai/api/v1/search/gtin/5901234123457"
+curl -s "https://shoptera.ai/api/v1/search/gtin/5901234123457"
 ```
 
 ---
@@ -27,7 +27,7 @@ import requests
 
 gtin = "5901234123457"
 
-response = requests.get(f"https://api.shoptera.ai/api/v1/search/gtin/{gtin}", params={
+response = requests.get(f"https://shoptera.ai/api/v1/search/gtin/{gtin}", params={
     "origin_country": "CZ",
     "limit": 10,
 })
@@ -57,7 +57,7 @@ const params = new URLSearchParams({
 });
 
 const response = await fetch(
-  `https://api.shoptera.ai/api/v1/search/gtin/${gtin}?${params}`
+  `https://shoptera.ai/api/v1/search/gtin/${gtin}?${params}`
 );
 const data = await response.json();
 

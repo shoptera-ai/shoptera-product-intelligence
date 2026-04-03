@@ -2,7 +2,7 @@
 
 Standalone examples for all Shoptera API endpoints. No SDK or authentication required.
 
-Base URL: `https://api.shoptera.ai`
+Base URL: `https://shoptera.ai/api`
 
 ---
 
@@ -12,13 +12,13 @@ Base URL: `https://api.shoptera.ai`
 
 ```bash
 # Search for gardening gifts under 500 CZK
-curl -s "https://api.shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka&max_price=500&currency=CZK&origin_country=CZ&limit=5"
+curl -s "https://shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka&max_price=500&currency=CZK&origin_country=CZ&limit=5"
 
 # Search with brand and availability filter
-curl -s "https://api.shoptera.ai/api/v1/search?q=b%C4%9B%C5%BEeck%C3%A9+boty&brand=Nike&availability=in_stock&limit=10"
+curl -s "https://shoptera.ai/api/v1/search?q=b%C4%9B%C5%BEeck%C3%A9+boty&brand=Nike&availability=in_stock&limit=10"
 
 # Search across all countries
-curl -s "https://api.shoptera.ai/api/v1/search?q=wireless+headphones&max_price=100&currency=EUR"
+curl -s "https://shoptera.ai/api/v1/search?q=wireless+headphones&max_price=100&currency=EUR"
 ```
 
 ### Python
@@ -28,7 +28,7 @@ import requests
 
 def semantic_search(query, **filters):
     params = {"q": query, **filters}
-    response = requests.get("https://api.shoptera.ai/api/v1/search", params=params)
+    response = requests.get("https://shoptera.ai/api/v1/search", params=params)
     response.raise_for_status()
     return response.json()
 
@@ -51,7 +51,7 @@ for product in results["results"]:
 async function semanticSearch(query, filters = {}) {
   const params = new URLSearchParams({ q: query, ...filters });
   const response = await fetch(
-    `https://api.shoptera.ai/api/v1/search?${params}`
+    `https://shoptera.ai/api/v1/search?${params}`
   );
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return response.json();
@@ -80,10 +80,10 @@ for (const product of results.results) {
 
 ```bash
 # Search by product name
-curl -s "https://api.shoptera.ai/api/v1/search/text?title=st%C5%99%C3%ADbrn%C3%BD+p%C5%99%C3%ADv%C4%9Bsek&origin_country=CZ"
+curl -s "https://shoptera.ai/api/v1/search/text?title=st%C5%99%C3%ADbrn%C3%BD+p%C5%99%C3%ADv%C4%9Bsek&origin_country=CZ"
 
 # Search with brand filter
-curl -s "https://api.shoptera.ai/api/v1/search/text?title=Air+Max&brand=Nike&limit=10"
+curl -s "https://shoptera.ai/api/v1/search/text?title=Air+Max&brand=Nike&limit=10"
 ```
 
 ### Python
@@ -93,7 +93,7 @@ import requests
 
 def keyword_search(title, **filters):
     params = {"title": title, **filters}
-    response = requests.get("https://api.shoptera.ai/api/v1/search/text", params=params)
+    response = requests.get("https://shoptera.ai/api/v1/search/text", params=params)
     response.raise_for_status()
     return response.json()
 
@@ -111,7 +111,7 @@ for product in results["results"]:
 async function keywordSearch(title, filters = {}) {
   const params = new URLSearchParams({ title, ...filters });
   const response = await fetch(
-    `https://api.shoptera.ai/api/v1/search/text?${params}`
+    `https://shoptera.ai/api/v1/search/text?${params}`
   );
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return response.json();
@@ -137,10 +137,10 @@ for (const product of results.results) {
 
 ```bash
 # Look up by EAN
-curl -s "https://api.shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ"
+curl -s "https://shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ"
 
 # Look up across all countries
-curl -s "https://api.shoptera.ai/api/v1/search/gtin/5901234123457?limit=20"
+curl -s "https://shoptera.ai/api/v1/search/gtin/5901234123457?limit=20"
 ```
 
 ### Python
@@ -149,7 +149,7 @@ curl -s "https://api.shoptera.ai/api/v1/search/gtin/5901234123457?limit=20"
 import requests
 
 def gtin_lookup(gtin, **filters):
-    response = requests.get(f"https://api.shoptera.ai/api/v1/search/gtin/{gtin}", params=filters)
+    response = requests.get(f"https://shoptera.ai/api/v1/search/gtin/{gtin}", params=filters)
     response.raise_for_status()
     return response.json()
 
@@ -167,7 +167,7 @@ for product in sorted(results["results"], key=lambda p: p["price"]):
 async function gtinLookup(gtin, filters = {}) {
   const params = new URLSearchParams(filters);
   const response = await fetch(
-    `https://api.shoptera.ai/api/v1/search/gtin/${gtin}?${params}`
+    `https://shoptera.ai/api/v1/search/gtin/${gtin}?${params}`
   );
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return response.json();
@@ -189,7 +189,7 @@ results.results
 ### curl
 
 ```bash
-curl -s "https://api.shoptera.ai/stats/global" | jq '.'
+curl -s "https://shoptera.ai/api/stats/global" | jq '.'
 ```
 
 ### Python
@@ -197,7 +197,7 @@ curl -s "https://api.shoptera.ai/stats/global" | jq '.'
 ```python
 import requests
 
-response = requests.get("https://api.shoptera.ai/stats/global")
+response = requests.get("https://shoptera.ai/api/stats/global")
 stats = response.json()
 
 catalog = stats["catalog"]
@@ -211,7 +211,7 @@ for country in catalog["by_country"]:
 ### JavaScript
 
 ```javascript
-const response = await fetch("https://api.shoptera.ai/stats/global");
+const response = await fetch("https://shoptera.ai/api/stats/global");
 const stats = await response.json();
 
 const { catalog } = stats;
@@ -236,7 +236,7 @@ def search_with_error_handling(query, **filters):
     params = {"q": query, **filters}
 
     try:
-        response = requests.get("https://api.shoptera.ai/api/v1/search", params=params)
+        response = requests.get("https://shoptera.ai/api/v1/search", params=params)
 
         if response.status_code == 422:
             errors = response.json()["detail"]
@@ -264,7 +264,7 @@ async function searchWithErrorHandling(query, filters = {}) {
 
   try {
     const response = await fetch(
-      `https://api.shoptera.ai/api/v1/search?${params}`
+      `https://shoptera.ai/api/v1/search?${params}`
     );
 
     if (response.status === 422) {

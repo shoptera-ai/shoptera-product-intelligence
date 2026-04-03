@@ -2,7 +2,7 @@
   "mcpServers": {
     "shoptera": {
       "type": "streamable-http",
-      "url": "https://api.shoptera.ai/mcp"
+      "url": "https://shoptera.ai/api/mcp"
     }
   }
 }

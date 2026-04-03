@@ -1,6 +1,6 @@
 # API Reference
 
-Base URL: `https://api.shoptera.ai`
+Base URL: `https://shoptera.ai/api`
 
 Authentication: **None required** — all endpoints are public.
 
@@ -35,7 +35,7 @@ GET /api/v1/search
 ### Example Request
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka&max_price=500&currency=CZK&origin_country=CZ"
+curl "https://shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka&max_price=500&currency=CZK&origin_country=CZ"
 ```
 
 ### Example Response
@@ -98,7 +98,7 @@ GET /api/v1/search/text
 ### Example Request
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search/text?title=st%C5%99%C3%ADbrn%C3%BD+p%C5%99%C3%ADv%C4%9Bsek&origin_country=CZ"
+curl "https://shoptera.ai/api/v1/search/text?title=st%C5%99%C3%ADbrn%C3%BD+p%C5%99%C3%ADv%C4%9Bsek&origin_country=CZ"
 ```
 
 ### Example Response
@@ -162,7 +162,7 @@ GET /api/v1/search/gtin/{gtin}
 ### Example Request
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ"
+curl "https://shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ"
 ```
 
 ### Example Response
@@ -216,7 +216,7 @@ None.
 ### Example Request
 
 ```bash
-curl "https://api.shoptera.ai/stats/global"
+curl "https://shoptera.ai/api/stats/global"
 ```
 
 ### Example Response

@@ -11,11 +11,11 @@ info:
     url: https://shoptera.ai
 
 servers:
-  - url: https://api.shoptera.ai
+  - url: https://shoptera.ai/api
     description: Production
 
 paths:
-  /api/v1/search:
+  /v1/search:
     get:
       operationId: searchProducts
       summary: Semantic product search
@@ -124,7 +124,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/RateLimitError"
 
-  /api/v1/search/text:
+  /v1/search/text:
     get:
       operationId: searchProductsByText
       summary: Keyword product search
@@ -220,7 +220,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/RateLimitError"
 
-  /api/v1/search/gtin/{gtin}:
+  /v1/search/gtin/{gtin}:
     get:
       operationId: lookupByGtin
       summary: GTIN/EAN barcode lookup

@@ -9,13 +9,13 @@ Search products using natural language. The API understands intent, synonyms, an
 ## curl
 
 ```bash
-curl -s "https://api.shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka+do+500+K%C4%8D&max_price=500&currency=CZK&origin_country=CZ&limit=5"
+curl -s "https://shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka+do+500+K%C4%8D&max_price=500&currency=CZK&origin_country=CZ&limit=5"
 ```
 
 With filters:
 
 ```bash
-curl -s "https://api.shoptera.ai/api/v1/search?q=b%C4%9B%C5%BEeck%C3%A9+boty&brand=Nike&availability=in_stock&min_price=1000&max_price=3000&currency=CZK"
+curl -s "https://shoptera.ai/api/v1/search?q=b%C4%9B%C5%BEeck%C3%A9+boty&brand=Nike&availability=in_stock&min_price=1000&max_price=3000&currency=CZK"
 ```
 
 ---
@@ -25,7 +25,7 @@ curl -s "https://api.shoptera.ai/api/v1/search?q=b%C4%9B%C5%BEeck%C3%A9+boty&bra
 ```python
 import requests
 
-response = requests.get("https://api.shoptera.ai/api/v1/search", params={
+response = requests.get("https://shoptera.ai/api/v1/search", params={
     "q": "dárek pro zahradníka do 500 Kč",
     "max_price": 500,
     "currency": "CZK",
@@ -56,7 +56,7 @@ const params = new URLSearchParams({
 });
 
 const response = await fetch(
-  `https://api.shoptera.ai/api/v1/search?${params}`
+  `https://shoptera.ai/api/v1/search?${params}`
 );
 const data = await response.json();
 

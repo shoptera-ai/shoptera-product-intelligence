@@ -10,7 +10,7 @@
 
 ## API
 
-Base URL: `https://api.shoptera.ai`
+Base URL: `https://shoptera.ai/api`
 
 No authentication required. Rate limit: 300 requests/hour per IP.
 
@@ -19,7 +19,7 @@ No authentication required. Rate limit: 300 requests/hour per IP.
 Natural language product search. Understands intent, synonyms, and multilingual queries.
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka&max_price=500&currency=CZK&origin_country=CZ&limit=5"
+curl "https://shoptera.ai/api/v1/search?q=d%C3%A1rek+pro+zahradn%C3%ADka&max_price=500&currency=CZK&origin_country=CZ&limit=5"
 ```
 
 Parameters: `q` (required), `origin_country`, `target_country`, `min_price`, `max_price`, `currency`, `brand`, `category`, `availability`, `eshop_domain`, `limit` (1-50).
@@ -29,7 +29,7 @@ Parameters: `q` (required), `origin_country`, `target_country`, `min_price`, `ma
 Exact token matching in product titles. Faster, deterministic.
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search/text?title=Nike+Air+Max+90&brand=Nike&origin_country=CZ"
+curl "https://shoptera.ai/api/v1/search/text?title=Nike+Air+Max+90&brand=Nike&origin_country=CZ"
 ```
 
 Parameters: `title` (required), `brand`, `category`, `origin_country`, `target_country`, `min_price`, `max_price`, `currency`, `limit` (1-50).
@@ -39,7 +39,7 @@ Parameters: `title` (required), `brand`, `category`, `origin_country`, `target_c
 Find products by barcode number (8-14 digits).
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ"
+curl "https://shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ"
 ```
 
 Parameters: `origin_country`, `target_country`, `limit` (1-50).
@@ -97,6 +97,6 @@ Each product has a `cart_action.method`:
 
 ## MCP
 
-MCP endpoint: `https://api.shoptera.ai/mcp` (streamable HTTP, stateless)
+MCP endpoint: `https://shoptera.ai/api/mcp` (streamable HTTP, stateless)
 
 Tools: `search_products`, `search_products_by_text`, `lookup_by_gtin`

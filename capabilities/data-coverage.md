@@ -25,7 +25,7 @@ Use `origin_country` to filter by the e-shop's country. Use `target_country` to 
 Check current catalog size at any time:
 
 ```bash
-curl -s "https://api.shoptera.ai/stats/global" | jq '.catalog'
+curl -s "https://shoptera.ai/api/stats/global" | jq '.catalog'
 ```
 
 Example response:

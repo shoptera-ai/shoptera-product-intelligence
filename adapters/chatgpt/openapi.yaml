@@ -8,11 +8,11 @@ info:
   version: "1.0.0"
 
 servers:
-  - url: https://api.shoptera.ai
+  - url: https://shoptera.ai/api
     description: Production
 
 paths:
-  /api/v1/search:
+  /v1/search:
     get:
       operationId: searchProducts
       summary: Semantic product search using natural language
@@ -98,7 +98,7 @@ paths:
         "429":
           description: Rate limit exceeded (300/hour per IP)
 
-  /api/v1/search/text:
+  /v1/search/text:
     get:
       operationId: searchProductsByKeyword
       summary: Keyword search in product titles
@@ -171,7 +171,7 @@ paths:
         "429":
           description: Rate limit exceeded
 
-  /api/v1/search/gtin/{gtin}:
+  /v1/search/gtin/{gtin}:
     get:
       operationId: lookupProductByGtin
       summary: Look up product by GTIN/EAN barcode

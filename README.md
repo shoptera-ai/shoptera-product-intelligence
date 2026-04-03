@@ -4,30 +4,30 @@ Search product catalogs across thousands of Central European e-shops. Semantic s
 
 **~2,500 e-shops** | **~8.5M products** | **7 countries** (CZ, SK, PL, HU, RO, DE, AT)
 
-Live stats: [`GET /stats/global`](https://api.shoptera.ai/stats/global)
+Live stats: [`GET /stats/global`](https://shoptera.ai/api/stats/global)
 
 ---
 
 ## Quickstart
 
-No authentication required. Base URL: `https://api.shoptera.ai`
+No authentication required. Base URL: `https://shoptera.ai/api`
 
 **Semantic search** — natural language, understands intent:
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search?q=dárek+pro+zahradníka+do+500+Kč&max_price=500&currency=CZK&origin_country=CZ"
+curl "https://shoptera.ai/api/v1/search?q=dárek+pro+zahradníka+do+500+Kč&max_price=500&currency=CZK&origin_country=CZ"
 ```
 
 **Keyword search** — exact title matching, fast:
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search/text?title=Nike+Air+Max+90&brand=Nike"
+curl "https://shoptera.ai/api/v1/search/text?title=Nike+Air+Max+90&brand=Nike"
 ```
 
 **GTIN/EAN lookup** — find e-shops by barcode:
 
 ```bash
-curl "https://api.shoptera.ai/api/v1/search/gtin/5901234123457"
+curl "https://shoptera.ai/api/v1/search/gtin/5901234123457"
 ```
 
 ---
@@ -46,14 +46,14 @@ curl "https://api.shoptera.ai/api/v1/search/gtin/5901234123457"
 
 ### MCP Quick Setup
 
-MCP endpoint: `https://api.shoptera.ai/mcp` (streamable HTTP, stateless)
+MCP endpoint: `https://shoptera.ai/api/mcp` (streamable HTTP, stateless)
 
 ```json
 {
   "mcpServers": {
     "shoptera": {
       "type": "streamable-http",
-      "url": "https://api.shoptera.ai/mcp"
+      "url": "https://shoptera.ai/api/mcp"
     }
   }
 }

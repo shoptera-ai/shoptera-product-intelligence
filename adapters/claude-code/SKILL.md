@@ -74,13 +74,13 @@ If MCP tools are unavailable, use the REST API directly:
 
 ```bash
 # Semantic search
-curl "https://api.shoptera.ai/api/v1/search?q=query&origin_country=CZ"
+curl "https://shoptera.ai/api/v1/search?q=query&origin_country=CZ"
 
 # Keyword search
-curl "https://api.shoptera.ai/api/v1/search/text?title=product+name"
+curl "https://shoptera.ai/api/v1/search/text?title=product+name"
 
 # GTIN lookup
-curl "https://api.shoptera.ai/api/v1/search/gtin/5901234123457"
+curl "https://shoptera.ai/api/v1/search/gtin/5901234123457"
 ```
 
 ## Presenting Results

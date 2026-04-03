@@ -8,7 +8,7 @@ Search product catalogs across 2500+ Central European e-shops. No authentication
 
 Semantic product search using natural language. Understands intent, synonyms, and multilingual queries.
 
-**Endpoint:** `GET https://api.shoptera.ai/api/v1/search`
+**Endpoint:** `GET https://shoptera.ai/api/v1/search`
 
 **Parameters:**
 - `q` (string, required) — natural language query
@@ -26,7 +26,7 @@ Semantic product search using natural language. Understands intent, synonyms, an
 **Example:**
 
 ```
-GET https://api.shoptera.ai/api/v1/search?q=dárek+pro+zahradníka&max_price=500&currency=CZK&origin_country=CZ
+GET https://shoptera.ai/api/v1/search?q=dárek+pro+zahradníka&max_price=500&currency=CZK&origin_country=CZ
 ```
 
 ---
@@ -35,7 +35,7 @@ GET https://api.shoptera.ai/api/v1/search?q=dárek+pro+zahradníka&max_price=500
 
 Keyword search in product titles. Exact token matching, deterministic results.
 
-**Endpoint:** `GET https://api.shoptera.ai/api/v1/search/text`
+**Endpoint:** `GET https://shoptera.ai/api/v1/search/text`
 
 **Parameters:**
 - `title` (string, required) — keywords to match in titles
@@ -51,7 +51,7 @@ Keyword search in product titles. Exact token matching, deterministic results.
 **Example:**
 
 ```
-GET https://api.shoptera.ai/api/v1/search/text?title=Nike+Air+Max&brand=Nike&origin_country=CZ
+GET https://shoptera.ai/api/v1/search/text?title=Nike+Air+Max&brand=Nike&origin_country=CZ
 ```
 
 ---
@@ -60,7 +60,7 @@ GET https://api.shoptera.ai/api/v1/search/text?title=Nike+Air+Max&brand=Nike&ori
 
 GTIN/EAN/UPC barcode lookup (8-14 digits).
 
-**Endpoint:** `GET https://api.shoptera.ai/api/v1/search/gtin/{gtin}`
+**Endpoint:** `GET https://shoptera.ai/api/v1/search/gtin/{gtin}`
 
 **Parameters:**
 - `gtin` (path, required) — barcode number (8-14 digits)
@@ -71,7 +71,7 @@ GTIN/EAN/UPC barcode lookup (8-14 digits).
 **Example:**
 
 ```
-GET https://api.shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ
+GET https://shoptera.ai/api/v1/search/gtin/5901234123457?origin_country=CZ
 ```
 
 ---
@@ -135,6 +135,6 @@ Each product has `cart_action.method`:
 
 ## MCP
 
-MCP endpoint: `https://api.shoptera.ai/mcp` (streamable HTTP)
+MCP endpoint: `https://shoptera.ai/api/mcp` (streamable HTTP)
 
 The same three tools are available via MCP protocol.
