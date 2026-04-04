@@ -1,25 +1,10 @@
-# Smithery configuration for Shoptera Product Intelligence MCP server
-# https://smithery.ai/docs/config#smitheryyaml
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
 
 startCommand:
-  type: http
-  url: https://shoptera.ai/api/mcp
-
-configSchema:
-  type: object
-  properties:
-    origin_country:
-      type: string
-      description: "Default country filter for search results. 2-letter ISO code: CZ, SK, PL, HU, RO, DE, AT."
-      enum: ["CZ", "SK", "PL", "HU", "RO", "DE", "AT"]
-    currency:
-      type: string
-      description: "Default currency for price filters. ISO 4217 code."
-      enum: ["CZK", "EUR", "PLN", "HUF", "RON"]
-    default_limit:
-      type: integer
-      description: "Default number of results per search. Range: 1-50."
-      default: 10
-      minimum: 1
-      maximum: 50
-  required: []
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+  commandFunction:
+    |-
+    (config) => ({ command: 'npx', args: ['-y', 'mcp-remote', 'https://shoptera.ai/api/mcp'] })
