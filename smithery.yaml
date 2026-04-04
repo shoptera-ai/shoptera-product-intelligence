@@ -4,7 +4,13 @@ startCommand:
   type: stdio
   configSchema:
     type: object
-    properties: {}
+    properties:
+      serverUrl:
+        type: string
+        default: "https://shoptera.ai/api/mcp"
+        description: Shoptera MCP server URL. Override only for custom deployments.
   commandFunction:
     |-
-    (config) => ({ command: 'npx', args: ['-y', 'mcp-remote', 'https://shoptera.ai/api/mcp'] })
+    (config) => ({ command: 'npx', args: ['-y', 'mcp-remote', config.serverUrl || 'https://shoptera.ai/api/mcp'] })
+  exampleConfig:
+    serverUrl: "https://shoptera.ai/api/mcp"
