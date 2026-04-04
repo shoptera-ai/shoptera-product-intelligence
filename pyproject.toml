@@ -1,0 +1,46 @@
+[project]
+name = "shoptera-product-intelligence"
+version = "1.0.0"
+description = "MCP server for searching product catalogs across 2,500+ Central European e-shops. Semantic search, keyword matching, and GTIN/EAN barcode lookup."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "Shoptera", email = "hello@shoptera.ai" },
+]
+keywords = [
+    "mcp",
+    "model-context-protocol",
+    "product-search",
+    "e-commerce",
+    "ai",
+    "shopping",
+    "price-comparison",
+    "gtin",
+    "ean",
+    "barcode",
+    "central-europe",
+    "czech",
+    "slovakia",
+    "poland",
+    "hungary",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Internet :: WWW/HTTP",
+]
+
+[project.urls]
+Homepage = "https://shoptera.ai"
+Repository = "https://github.com/shoptera-ai/shoptera-product-intelligence"
+Documentation = "https://github.com/shoptera-ai/shoptera-product-intelligence/blob/main/api/reference.md"
+"Bug Tracker" = "https://github.com/shoptera-ai/shoptera-product-intelligence/issues"
+Changelog = "https://github.com/shoptera-ai/shoptera-product-intelligence/blob/main/CHANGELOG.md"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
