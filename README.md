@@ -225,6 +225,33 @@ OpenAPI spec: [`api/openapi.yaml`](api/openapi.yaml)
 
 ---
 
+## Privacy Policy
+
+Shoptera Product Intelligence is a **read-only product search service**. We do not require authentication, do not collect personal data, and do not process payments.
+
+- **No personal data collected** — no accounts, no cookies, no tracking pixels
+- **Query logging** — we log anonymized search queries (without IP addresses) for service improvement and aggregate usage statistics
+- **No data sharing** — query logs are not shared with third parties
+- **Rate limiting** — IP addresses are used transiently for rate limiting (300 req/hour) and are not stored
+- **Product data** — all product information is sourced from publicly available e-shop feeds
+- **Cart actions** — purchase redirects go directly to the original e-shop; Shoptera does not intermediate transactions
+
+For questions, contact hello@shoptera.ai.
+
+---
+
+## Agent Discovery
+
+This server supports multiple discovery protocols for AI agents:
+
+| Protocol | Endpoint | Description |
+|----------|----------|-------------|
+| **MCP Server Card** | [`/.well-known/mcp/server-card.json`](https://shoptera.ai/.well-known/mcp/server-card.json) | MCP auto-discovery (tools, capabilities, transport) |
+| **A2A Agent Card** | [`/.well-known/agent-card.json`](https://shoptera.ai/.well-known/agent-card.json) | Agent-to-Agent protocol discovery (skills, interfaces) |
+| **UCP Manifest** | [`/.well-known/ucp`](https://shoptera.ai/.well-known/ucp) | Universal Commerce Protocol binding |
+
+---
+
 ## Contributing
 
 Found an issue with the docs? Open a PR:
