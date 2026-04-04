@@ -4,12 +4,12 @@
 
 **Universal (any MCP-compatible tool):**
 ```bash
-npx add-mcp https://shoptera.ai/api/mcp -n shoptera -g -y
+npx add-mcp https://shoptera.ai/mcp/ -n shoptera -g -y
 ```
 
 **Claude Code:**
 ```bash
-claude mcp add --transport http shoptera https://shoptera.ai/api/mcp
+claude mcp add --transport http shoptera https://shoptera.ai/mcp/
 ```
 
 ## Capabilities
@@ -111,6 +111,6 @@ Each product has a `cart_action.method`:
 
 ## MCP
 
-MCP endpoint: `https://shoptera.ai/api/mcp` (streamable HTTP, stateless)
+MCP endpoint: `https://shoptera.ai/mcp/` (streamable HTTP, stateless)
 
 Tools: `search_products`, `search_products_by_text`, `lookup_by_gtin`

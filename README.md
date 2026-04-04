@@ -84,12 +84,12 @@ User describes what they want?  -->  search_products
 
 ## Installation
 
-No authentication required. MCP endpoint: `https://shoptera.ai/api/mcp` (streamable HTTP, stateless)
+No authentication required. MCP endpoint: `https://shoptera.ai/mcp/` (streamable HTTP, stateless)
 
 ### Claude Code
 
 ```bash
-claude mcp add --transport http shoptera https://shoptera.ai/api/mcp
+claude mcp add --transport http shoptera https://shoptera.ai/mcp/
 ```
 
 ### Cursor
@@ -99,7 +99,7 @@ Add to Cursor Settings > Features > MCP > Add New MCP Server, or edit `~/.cursor
 ```json
 {
   "mcpServers": {
-    "shoptera": { "url": "https://shoptera.ai/api/mcp" }
+    "shoptera": { "url": "https://shoptera.ai/mcp/" }
   }
 }
 ```
@@ -111,7 +111,7 @@ Add via Cascade > MCP Servers > Add Server, or edit `~/.codeium/windsurf/mcp_con
 ```json
 {
   "mcpServers": {
-    "shoptera": { "url": "https://shoptera.ai/api/mcp" }
+    "shoptera": { "url": "https://shoptera.ai/mcp/" }
   }
 }
 ```
@@ -123,7 +123,7 @@ Edit `.vscode/mcp.json` in your workspace:
 ```json
 {
   "mcpServers": {
-    "shoptera": { "url": "https://shoptera.ai/api/mcp" }
+    "shoptera": { "url": "https://shoptera.ai/mcp/" }
   }
 }
 ```
@@ -131,14 +131,14 @@ Edit `.vscode/mcp.json` in your workspace:
 ### Any tool (universal installer)
 
 ```bash
-npx add-mcp https://shoptera.ai/api/mcp -n shoptera -g -y
+npx add-mcp https://shoptera.ai/mcp/ -n shoptera -g -y
 ```
 
 ### All Platforms
 
 | Platform | Setup | Details |
 |----------|-------|---------|
-| **Claude Code** | `claude mcp add --transport http shoptera https://shoptera.ai/api/mcp` | [Skill guide](adapters/claude-code/SKILL.md) |
+| **Claude Code** | `claude mcp add --transport http shoptera https://shoptera.ai/mcp/` | [Skill guide](adapters/claude-code/SKILL.md) |
 | **Cursor** | [MCP config](adapters/cursor/mcp-config.json) | Settings > Features > MCP |
 | **Windsurf** | [MCP config](adapters/windsurf/mcp-config.json) | Cascade > MCP Servers |
 | **VS Code** | [MCP config](adapters/claude-code/mcp-config.json) | `.vscode/mcp.json` |

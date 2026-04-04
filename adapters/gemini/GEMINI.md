@@ -142,6 +142,6 @@ Each product has `cart_action.method`:
 
 ## MCP
 
-MCP endpoint: `https://shoptera.ai/api/mcp` (streamable HTTP)
+MCP endpoint: `https://shoptera.ai/mcp/` (streamable HTTP)
 
 The same three tools are available via MCP protocol.
