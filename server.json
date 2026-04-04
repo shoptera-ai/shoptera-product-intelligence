@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.shoptera-ai/product-intelligence",
   "title": "Shoptera Product Intelligence",
-  "description": "Search product catalogs across ~2,500 Central European e-shops (~8.5M products). Semantic search, keyword matching, and GTIN/EAN barcode lookup. Covers CZ, SK, PL, HU, RO, DE, AT. No authentication required.",
+  "description": "Search ~8.5M products from 2,500+ Central European e-shops. Semantic, keyword, GTIN lookup.",
   "repository": {
     "url": "https://github.com/shoptera-ai/shoptera-product-intelligence",
     "source": "github"
