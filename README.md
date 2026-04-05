@@ -264,6 +264,20 @@ Please keep changes consistent with [`api/reference.md`](api/reference.md) as th
 
 ---
 
+## UCP Integration
+
+E-shops indexed by Shoptera can deploy a [UCP](https://ucp.dev/) profile (`/.well-known/ucp`) to enable AI agent discovery. Shoptera provides per-e-shop MCP endpoints:
+
+```
+https://shoptera.ai/mcp/shops/{your-domain}/
+```
+
+This exposes UCP-standard Catalog tools (`search_catalog`, `lookup_catalog`, `get_product`) scoped to your e-shop's products. Results include `metadata.cart_url` for add-to-cart redirect on supported platforms (Shoptet).
+
+See [capabilities/ucp-integration.md](capabilities/ucp-integration.md) for full details and [adapters/ucp/profile-example.json](adapters/ucp/profile-example.json) for an example profile.
+
+---
+
 ## License
 
 MIT

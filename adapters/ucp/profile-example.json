@@ -1,0 +1,26 @@
+{
+  "ucp": {
+    "version": "2026-01-23",
+    "services": {
+      "dev.ucp.shopping": [
+        {
+          "version": "draft",
+          "spec": "https://ucp.dev/draft/specification/overview",
+          "transport": "mcp",
+          "endpoint": "https://shoptera.ai/mcp/shops/example-shop.cz/",
+          "schema": "https://ucp.dev/draft/services/shopping/mcp.openrpc.json"
+        }
+      ]
+    },
+    "capabilities": {
+      "dev.ucp.shopping.catalog.search": [
+        {
+          "version": "draft",
+          "spec": "https://ucp.dev/draft/specification/catalog/",
+          "schema": "https://ucp.dev/draft/schemas/shopping/catalog-search.json"
+        }
+      ]
+    },
+    "payment_handlers": {}
+  }
+}
