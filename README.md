@@ -146,6 +146,8 @@ npx add-mcp https://shoptera.ai/mcp/ -n shoptera -g -y
 | **ChatGPT** | [OpenAPI spec](adapters/chatgpt/openapi.yaml) | Custom GPT actions. [Instructions](adapters/chatgpt/instructions.md) |
 | **Gemini** | [GEMINI.md](adapters/gemini/GEMINI.md) | Tool definitions and endpoints |
 | **Any HTTP client** | [Examples](adapters/generic/http-examples.md) | curl, Python, JavaScript |
+| | | |
+| **Merchant MCP** | `shoptera-merchant` at `https://shoptera.ai/mcp/merchant/` | [Requires API key](#merchant-feed-optimizer) |
 
 ---
 
@@ -261,6 +263,75 @@ Found an issue with the docs? Open a PR:
 3. Submit a pull request
 
 Please keep changes consistent with [`api/reference.md`](api/reference.md) as the source of truth for API behavior.
+
+---
+
+## Merchant Feed Optimizer
+
+**For e-shop owners:** Shoptera also provides an authenticated MCP server for optimizing your own product feeds with AI. Connect your AI assistant (Claude, GPT, Cursor, etc.) to your Shoptera account and let it improve titles, descriptions, GTINs, categories, and more — with results staged in an Inbox for your review before publishing.
+
+**9 workflows** | **7 MCP tools** | **API key auth** (`shopt_...`)
+
+MCP endpoint: `https://shoptera.ai/mcp/merchant/` (streamable HTTP, requires Bearer token)
+
+### Tools
+
+| Tool | Description |
+|------|-------------|
+| `list_my_projects` | Discover all shops you own or are a team member of |
+| `get_status` | Feed overview: total products, optimization progress, pending by workflow |
+| `get_workflow` | Instructions and validation rules for a specific workflow |
+| `get_products` | Fetch products with filters (missing fields, price range, category) |
+| `get_priority_products` | Cross-workflow ranking by impact score |
+| `save_results` | Stage optimization results in Inbox for merchant review |
+| `find_product_sources` | Search guidance and CSS selectors for web enrichment |
+
+### Workflows
+
+| Workflow | What It Optimizes |
+|----------|-------------------|
+| `title` | Product titles for CTR and search visibility |
+| `description` | Product descriptions with attributes |
+| `gtin` | Missing GTIN/EAN codes via web search |
+| `enrichment` | Category, tags, FAQs, highlights, use cases |
+| `condition` | Product condition (new, refurbished, used) |
+| `age_gender` | Gender and age group for apparel |
+| `bundle` | Multipack detection and count |
+| `duplicate` | Duplicate product detection |
+| `rich_text` | HTML descriptions for Facebook/Allegro |
+
+### Installation
+
+Get your API key from [Shoptera Settings](https://shoptera.ai/settings) → API Keys.
+
+**Claude Code:**
+
+```bash
+claude mcp add --transport http shoptera-merchant https://shoptera.ai/mcp/merchant/ --header "Authorization: Bearer shopt_YOUR_KEY"
+```
+
+**Cursor / Windsurf / VS Code:**
+
+```json
+{
+  "mcpServers": {
+    "shoptera-merchant": {
+      "url": "https://shoptera.ai/mcp/merchant/",
+      "headers": {
+        "Authorization": "Bearer shopt_YOUR_KEY"
+      }
+    }
+  }
+}
+```
+
+> **Note:** Register as `shoptera-merchant`, not `shoptera` — keep the public product search server separate.
+
+### Documentation
+
+- [**Merchant Workflows**](capabilities/merchant-workflows.md) — all 9 workflows, fields, validation rules, confidence tiers
+- [**Merchant API Reference**](api/merchant-reference.md) — full tool signatures, parameters, response schemas
+- Adapter-specific setup: [Claude Code](adapters/claude-code/merchant-mcp-config.json) · [Cursor](adapters/cursor/merchant-mcp-config.json) · [Windsurf](adapters/windsurf/merchant-mcp-config.json)
 
 ---
 

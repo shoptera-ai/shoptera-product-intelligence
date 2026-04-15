@@ -111,8 +111,38 @@ When showing products to the user:
 5. If the user wants to buy, use the cart action
 6. For price comparisons, search the same product across multiple e-shops
 
+## Merchant Feed Optimizer
+
+For e-shop owners who want to optimize their own product feeds with AI. Requires a Shoptera API key.
+
+### Install
+
+```bash
+claude mcp add --transport http shoptera-merchant https://shoptera.ai/mcp/merchant/ --header "Authorization: Bearer shopt_YOUR_KEY"
+```
+
+> Register as `shoptera-merchant` — keep the public `shoptera` server separate.
+
+### Merchant Tools
+
+- `list_my_projects()` — discover your shops
+- `get_status(project)` — see optimization progress and what needs work
+- `get_workflow(project, workflow_type)` — get instructions for a workflow
+- `get_products(project, filter=...)` — fetch products to optimize
+- `get_priority_products(project)` — products ranked by impact score
+- `save_results(project, workflow_type, results_json)` — stage results for review
+- `find_product_sources(project)` — web search guidance for enrichment
+
+### Workflows
+
+title, description, gtin, enrichment, condition, age_gender, bundle, duplicate, rich_text
+
+See [Merchant Workflows](../../capabilities/merchant-workflows.md) and [Merchant API Reference](../../api/merchant-reference.md).
+
 ## Reference
 
 - [Product Search capabilities](../../capabilities/product-search.md)
 - [Cart Actions guide](../../capabilities/cart-actions.md)
 - [API Reference](../../api/reference.md)
+- [Merchant Workflows](../../capabilities/merchant-workflows.md)
+- [Merchant API Reference](../../api/merchant-reference.md)

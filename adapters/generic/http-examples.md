@@ -308,3 +308,66 @@ async function searchWithErrorHandling(query, filters = {}) {
 - Shared across all endpoints (REST + MCP)
 - 429 responses include a `Retry-After` header
 - Cache results to minimize requests for repeated queries
+
+---
+
+## Merchant Feed Optimizer
+
+For e-shop owners: authenticated API for AI-driven product feed optimization.
+
+**Base URL:** `https://shoptera.ai/api/merchant`
+
+**MCP endpoint:** `https://shoptera.ai/mcp/merchant/`
+
+**Authentication:** `Authorization: Bearer shopt_YOUR_KEY`
+
+### curl — List Projects
+
+```bash
+curl -s -H "Authorization: Bearer shopt_YOUR_KEY" \
+  "https://shoptera.ai/api/merchant/projects"
+```
+
+### curl — Get Feed Status
+
+```bash
+curl -s -H "Authorization: Bearer shopt_YOUR_KEY" \
+  "https://shoptera.ai/api/merchant/projects/my-eshop/status"
+```
+
+### curl — Get Priority Products
+
+```bash
+curl -s -H "Authorization: Bearer shopt_YOUR_KEY" \
+  "https://shoptera.ai/api/merchant/projects/my-eshop/priority?limit=10"
+```
+
+### Python — Full Workflow
+
+```python
+import requests
+
+API_KEY = "shopt_YOUR_KEY"
+BASE = "https://shoptera.ai/api/merchant"
+HEADERS = {"Authorization": f"Bearer {API_KEY}"}
+
+# 1. List projects
+projects = requests.get(f"{BASE}/projects", headers=HEADERS).json()
+slug = projects["projects"][0]["slug"]
+
+# 2. Check status
+status = requests.get(f"{BASE}/projects/{slug}/status", headers=HEADERS).json()
+print(f"Pending: {status['pending_optimization']} products")
+print(f"Recommended: {status['recommended_action']['workflow']}")
+
+# 3. Get products missing GTIN
+products = requests.get(
+    f"{BASE}/projects/{slug}/products",
+    headers=HEADERS,
+    params={"filter": '{"missing": ["gtin"]}', "limit": 25},
+).json()
+
+print(f"Products without GTIN: {products['count']}")
+```
+
+See [Merchant Workflows](../../capabilities/merchant-workflows.md) and [Merchant API Reference](../../api/merchant-reference.md) for full documentation.

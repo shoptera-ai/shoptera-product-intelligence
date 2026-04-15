@@ -145,3 +145,31 @@ Each product has `cart_action.method`:
 MCP endpoint: `https://shoptera.ai/mcp/` (streamable HTTP)
 
 The same three tools are available via MCP protocol.
+
+---
+
+## Merchant Feed Optimizer
+
+For e-shop owners: authenticated MCP server for AI-driven product feed optimization.
+
+**MCP endpoint:** `https://shoptera.ai/mcp/merchant/` (requires `Authorization: Bearer shopt_YOUR_KEY`)
+
+Get your API key from [Shoptera Settings](https://shoptera.ai/settings) → API Keys.
+
+### Merchant Tools
+
+| Tool | Description |
+|------|-------------|
+| `list_my_projects` | Discover shops you own or are a team member of |
+| `get_status` | Feed overview, pending counts per workflow, recommended action |
+| `get_workflow` | Instructions and validation rules for a workflow |
+| `get_products` | Fetch products with filters and pagination |
+| `get_priority_products` | Products ranked by optimization impact score |
+| `save_results` | Stage optimization results for merchant review |
+| `find_product_sources` | Web search guidance and CSS selectors for enrichment |
+
+### Workflows
+
+title, description, gtin, enrichment, condition, age_gender, bundle, duplicate, rich_text
+
+See [Merchant Workflows](../../capabilities/merchant-workflows.md) and [Merchant API Reference](../../api/merchant-reference.md) for details.

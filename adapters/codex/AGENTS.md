@@ -114,3 +114,22 @@ Each product has a `cart_action.method`:
 MCP endpoint: `https://shoptera.ai/mcp/` (streamable HTTP, stateless)
 
 Tools: `search_products`, `search_products_by_text`, `lookup_by_gtin`
+
+---
+
+## Merchant Feed Optimizer
+
+For e-shop owners: authenticated MCP server for optimizing your own product feeds with AI.
+
+**MCP endpoint:** `https://shoptera.ai/mcp/merchant/` (requires `Authorization: Bearer shopt_YOUR_KEY`)
+
+**Setup:**
+```bash
+npx add-mcp https://shoptera.ai/mcp/merchant/ -n shoptera-merchant -g -y --header "Authorization: Bearer shopt_YOUR_KEY"
+```
+
+**Tools:** `list_my_projects`, `get_status`, `get_workflow`, `get_products`, `get_priority_products`, `save_results`, `find_product_sources`
+
+**Workflows:** title, description, gtin, enrichment, condition, age_gender, bundle, duplicate, rich_text
+
+See [Merchant Workflows](../../capabilities/merchant-workflows.md) and [Merchant API Reference](../../api/merchant-reference.md) for full documentation.

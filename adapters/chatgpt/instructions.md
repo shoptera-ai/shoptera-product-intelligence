@@ -63,3 +63,17 @@ All search actions accept an optional `fields` parameter (comma-separated string
 ## Setup
 
 Import the OpenAPI spec from `adapters/chatgpt/openapi.yaml` as custom actions in your GPT configuration. No authentication setup is needed.
+
+---
+
+## Merchant Feed Optimizer
+
+Shoptera also offers an authenticated MCP server for e-shop owners who want to optimize their product feeds with AI. This is a separate product from the public search above.
+
+**MCP endpoint:** `https://shoptera.ai/mcp/merchant/` (requires API key)
+
+**What it does:** AI assistants connect to your Shoptera account and optimize titles, descriptions, GTINs, categories, and more. Results are staged in an Inbox for your review before publishing.
+
+**Workflows:** title, description, gtin, enrichment, condition, age_gender, bundle, duplicate, rich_text
+
+See [Merchant Workflows](../../capabilities/merchant-workflows.md) for details.

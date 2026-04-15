@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "shoptera-merchant": {
+      "type": "streamable-http",
+      "url": "https://shoptera.ai/mcp/merchant/",
+      "headers": {
+        "Authorization": "Bearer shopt_YOUR_KEY"
+      }
+    }
+  }
+}
